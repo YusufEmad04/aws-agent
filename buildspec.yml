@@ -9,6 +9,7 @@ phases:
       # get 2 api keys from aws secrets manager
       # OPENAI_API_KEY
       # PINECONE_API_KEY3
+      - aws configure list
 
       - aws secretsmanager get-secret-value --secret-id OPENAI_API_KEY --query SecretString --output text > OPENAI_API_KEY.txt
       - aws secretsmanager get-secret-value --secret-id PINECONE_API_KEY3 --query SecretString --output text > PINECONE_API_KEY3.txt
