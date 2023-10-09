@@ -14,7 +14,7 @@ from enum import Enum
 # from langchain.agents import initialize_agent, Tool
 
 # yusuf.emad.pinecone email
-pinecone.init(api_key=os.environ["PINECONE_API_KEY4"], environment=os.environ["PINECONE4_ENV"])
+pinecone.init(api_key=os.environ["PINECONE_API_KEY"], environment=os.environ["PINECONE_ENV"])
 
 
 class VectorStoreType(str, Enum):
