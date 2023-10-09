@@ -1,6 +1,4 @@
 import os
-from enum import Enum
-
 from langchain.chat_models import ChatOpenAI
 from langchain.prompts import MessagesPlaceholder
 from langchain.schema import SystemMessage
