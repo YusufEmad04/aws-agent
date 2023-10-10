@@ -10,8 +10,8 @@ phases:
       # OPENAI_API_KEY
       # PINECONE_API_KEY3
       - aws configure list
+      - aws secretsmanager list-secrets
       - aws secretsmanager get-secret-value --secret-id OPENAI_API_KEY
-
       - aws secretsmanager get-secret-value --secret-id OPENAI_API_KEY --query SecretString --output text > OPENAI_API_KEY.txt
       - aws secretsmanager get-secret-value --secret-id PINECONE_API_KEY3 --query SecretString --output text > PINECONE_API_KEY3.txt
       - export OPENAI_API_KEY=$(cat OPENAI_API_KEY.txt)
