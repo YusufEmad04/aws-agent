@@ -11,6 +11,9 @@ phases:
         secret_json=$(aws secretsmanager get-secret-value --secret-id agent_builder)
         OPENAI_API_KEY=$(echo "$secret_json" | jq -r '.SecretString | fromjson | .OPENAI_API_KEY')
         PINECONE_API_KEY=$(echo "$secret_json" | jq -r '.SecretString | fromjson | .PINECONE_API_KEY')
+        # Set environment variables
+        export OPENAI_API_KEY=$OPENAI_API_KEY
+        export PINECONE_API_KEY=$PINECONE_API_KEY
 
       - aws ecr get-login-password --region us-west-1 | docker login --username AWS --password-stdin 073619244051.dkr.ecr.us-west-1.amazonaws.com
 
