@@ -12,12 +12,12 @@ phases:
         OPENAI_API_KEY=$(echo "$secret_json" | jq -r '.SecretString | fromjson | .OPENAI_API_KEY')
         PINECONE_API_KEY=$(echo "$secret_json" | jq -r '.SecretString | fromjson | .PINECONE_API_KEY')
 
-      - sudo service docker start
+      - sudo service /usr/bin/docker start
 
   build:
     commands:
       # build docker image using ecr build commands
       - aws ecr get-login-password --region us-west-1 | docker login --username AWS --password-stdin 073619244051.dkr.ecr.us-west-1.amazonaws.com
-      - docker build -t law-firm .
-      - docker tag law-firm:latest 073619244051.dkr.ecr.us-west-1.amazonaws.com/law-firm:latest
-      - docker push 073619244051.dkr.ecr.us-west-1.amazonaws.com/law-firm:latest
+      - /usr/bin/docker build -t law-firm .
+      - /usr/bin/docker tag law-firm:latest 073619244051.dkr.ecr.us-west-1.amazonaws.com/law-firm:latest
+      - /usr/bin/docker push 073619244051.dkr.ecr.us-west-1.amazonaws.com/law-firm:latest
