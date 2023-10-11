@@ -6,16 +6,11 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      # get 2 api keys from aws secrets manager
-      # OPENAI_API_KEY
-      # PINECONE_API_KEY3
-      - aws configure list
-      - aws secretsmanager list-secrets
-      - aws secretsmanager get-secret-value --secret-id OPENAI_API_KEY
-      - aws secretsmanager get-secret-value --secret-id OPENAI_API_KEY --query SecretString --output text > OPENAI_API_KEY.txt
-      - aws secretsmanager get-secret-value --secret-id PINECONE_API_KEY3 --query SecretString --output text > PINECONE_API_KEY3.txt
-      - export OPENAI_API_KEY=$(cat OPENAI_API_KEY.txt)
-      - export PINECONE_API_KEY3=$(cat PINECONE_API_KEY3.txt)
+      - |
+        # Retrieve secret and extract API keys
+        secret_json=$(aws secretsmanager get-secret-value --secret-id agent_builder)
+        OPENAI_API_KEY=$(echo "$secret_json" | jq -r '.SecretString | fromjson | .OPENAI_API_KEY')
+        PINECONE_API_KEY=$(echo "$secret_json" | jq -r '.SecretString | fromjson | .PINECONE_API_KEY')
 
   build:
     commands:
