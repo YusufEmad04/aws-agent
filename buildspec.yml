@@ -12,6 +12,8 @@ phases:
         OPENAI_API_KEY=$(echo "$secret_json" | jq -r '.SecretString | fromjson | .OPENAI_API_KEY')
         PINECONE_API_KEY=$(echo "$secret_json" | jq -r '.SecretString | fromjson | .PINECONE_API_KEY')
 
+      - sudo service docker start
+
   build:
     commands:
       # build docker image using ecr build commands
