@@ -1,5 +1,11 @@
 FROM public.ecr.aws/lambda/python:3.11
 
+ARG VAR1=default_value
+ARG VAR2=default_value
+
+ENV OPENAI_API_KEY=$VAR1
+ENV PINECONE_API_KEY=$VAR2
+
 COPY retrievers.py ${LAMBDA_TASK_ROOT}
 COPY tools.py ${LAMBDA_TASK_ROOT}
 COPY requirements.txt ${LAMBDA_TASK_ROOT}

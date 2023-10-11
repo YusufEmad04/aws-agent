@@ -20,6 +20,6 @@ phases:
   build:
     commands:
       # build docker image using ecr build commands and env variables
-      - docker build -t law-firm . --build-arg OPENAI_API_KEY=$OPENAI_API_KEY --build-arg PINECONE_API_KEY=$PINECONE_API_KEY
+      - docker build -t law-firm . --build-arg VAR1=$"OPENAI_API_KEY" --build-arg VAR2=$"PINECONE_API_KEY"
       - docker tag law-firm:latest 073619244051.dkr.ecr.us-west-1.amazonaws.com/law-firm:latest
       - docker push 073619244051.dkr.ecr.us-west-1.amazonaws.com/law-firm:latest
