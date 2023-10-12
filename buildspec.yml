@@ -26,3 +26,5 @@ phases:
       - docker build -t law-firm . --build-arg VAR1=$OPENAI_API_KEY --build-arg VAR2=$PINECONE_API_KEY
       - docker tag law-firm:latest 073619244051.dkr.ecr.us-west-1.amazonaws.com/law-firm:latest
       - docker push 073619244051.dkr.ecr.us-west-1.amazonaws.com/law-firm:latest
+      # update lambda function with new docker image
+      - aws lambda update-function-code --function-name test --image-uri 073619244051.dkr.ecr.us-west-1.amazonaws.com/law-firm:latest
