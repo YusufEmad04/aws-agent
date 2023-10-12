@@ -40,7 +40,7 @@ def _init_test_agent(session_id):
 
     reminder = "NEVER come up with answers. Always refer to the syllabus and in which lesson the answer is."
 
-    memory = AgentTokenBufferMemory(max_token_limit=7000, memory_key="chat_history", llm=llm_chat,
+    memory = AgentTokenBufferMemory(max_token_limit=8000, memory_key="chat_history", llm=llm_chat,
                                     chat_memory=DynamoDBChatMessageHistoryNew(table_name="langchain-agents",
                                                                               session_id=session_id, reminder=reminder))
 
