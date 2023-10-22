@@ -23,8 +23,8 @@ phases:
       # print env variable
       - echo $OPENAI_API_KEY
       - echo $PINECONE_API_KEY
-      - docker build -t law-firm . --build-arg VAR1=$OPENAI_API_KEY --build-arg VAR2=$PINECONE_API_KEY
-      - docker tag law-firm:latest 073619244051.dkr.ecr.us-west-1.amazonaws.com/law-firm:latest
-      - docker push 073619244051.dkr.ecr.us-west-1.amazonaws.com/law-firm:latest
+      - docker build -t medical-agent . --build-arg VAR1=$OPENAI_API_KEY --build-arg VAR2=$PINECONE_API_KEY
+      - docker tag medical-agent:latest 073619244051.dkr.ecr.us-west-1.amazonaws.com/medical-agent:latest
+      - docker push 073619244051.dkr.ecr.us-west-1.amazonaws.com/medical-agent:latest
       # update lambda function with new docker image
-      - aws lambda update-function-code --function-name test --image-uri 073619244051.dkr.ecr.us-west-1.amazonaws.com/law-firm:latest
+#      - aws lambda update-function-code --function-name test --image-uri 073619244051.dkr.ecr.us-west-1.amazonaws.com/law-firm:latest
