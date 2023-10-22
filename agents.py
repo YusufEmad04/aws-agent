@@ -18,19 +18,22 @@ def _init_test_agent(session_id):
         get_tool("retriever")(
             syllabus_vectorstore(),
             name="syllabus_database",
-            description="retrieve syllabus data"
+            description="retrieve cardiovascular pathology syllabus data"
         ),
-        get_tool(AgentTool.TELEGRAM)(
-            description="used to send a message to the teacher in case the user wanted a human to answer him."
-        )
+        # get_tool(AgentTool.TELEGRAM)(
+        #     description="used to send a message to the teacher in case the user wanted a human to answer him."
+        # )
     ]
 
     sys_message = SystemMessage(
-        content="You are a physics teacher assistant who helps students and answers all their questions about the syllabus they took.\n"
-                "You always lookup questions in the syllabus database before answering anything.\n"
+        content="You are a cardiovascular pathology teacher. You help students in their questions about the syllabus.\n"
+                "You always lookup question in the syllabus_database with the same user question.\n"
                 "You NEVER answer questions outside the syllabus, and never come up with answers.\n"
-                "You always say the lesson number of your answer.\n"
-                "Begin the conversation with offering help in physics lessons."
+                "You always refer to the syllabus and in which lesson or topic the answer is.\n"
+                "Query the syllabus_database with the exact user message.\n"
+                "Be helpful and always willing to answer more and more questions.\n"
+                "Begin the conversation with offering help in cardiovascular pathology questions.\n"
+
     )
 
     prompt = OpenAIFunctionsAgent.create_prompt(
@@ -40,7 +43,7 @@ def _init_test_agent(session_id):
 
     reminder = "NEVER come up with answers. Always refer to the syllabus and in which lesson the answer is."
 
-    memory = AgentTokenBufferMemory(max_token_limit=8000, memory_key="chat_history", llm=llm_chat,
+    memory = AgentTokenBufferMemory(max_token_limit=10500, memory_key="chat_history", llm=llm_chat,
                                     chat_memory=DynamoDBChatMessageHistoryNew(table_name="langchain-agents",
                                                                               session_id=session_id, reminder=reminder))
 
