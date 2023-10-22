@@ -10,7 +10,7 @@ phases:
         # Retrieve secret and extract API keys
         secret_json=$(aws secretsmanager get-secret-value --secret-id agent_builder)
         OPENAI_API_KEY=$(echo "$secret_json" | jq -r '.SecretString | fromjson | .OPENAI_API_KEY')
-        PINECONE_API_KEY=$(echo "$secret_json" | jq -r '.SecretString | fromjson | .PINECONE_API_KEY3')
+        PINECONE_API_KEY=$(echo "$secret_json" | jq -r '.SecretString | fromjson | .PINECONE_API_KEY_4')
         # Set environment variables
         export OPENAI_API_KEY=$OPENAI_API_KEY
         export PINECONE_API_KEY=$PINECONE_API_KEY
