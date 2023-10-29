@@ -88,7 +88,7 @@ def _get_llm_math(llm):
 def docs_to_text_retriever(retriever, custom_instruction=None):
     def _retriever(query):
         docs = retriever(query)
-        text = custom_instruction or ""
+        text = custom_instruction or "Answer about the context below:\n\n"
         for d in docs:
             text += f"content:\n{d.page_content.strip()}\nmetadata_about_content:\n{d.metadata}\n\n"
 

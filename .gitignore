@@ -5,3 +5,8 @@ __pycache__/
 data.txt
 ddd.py
 .env
+*.txt
+!requirements.txt
+*.png
+*.pdf
+*ipynb
