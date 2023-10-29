@@ -11,7 +11,7 @@ from langchain.agents.openai_functions_agent.agent_token_buffer_memory import Ag
 from tools import AgentTool
 
 def _init_test_agent(session_id):
-    llm_chat = ChatOpenAI(temperature=0.2, model="gpt-3.5-turbo-16k-0613")
+    llm_chat = ChatOpenAI(temperature=0.2, model="gpt-3.5-turbo-16k-0613", verbose=True)
     tools = [
         get_tool("retriever")(
             syllabus_vectorstore(),
@@ -30,7 +30,7 @@ def _init_test_agent(session_id):
                 "You always try to refer to the syllabus and in which lesson or topic the answer is if you can.\n"
                 "Query the syllabus_database with the exact user message without any modifications.\n"
                 "Be helpful and always willing to answer more and more questions.\n"
-                "Make your answers in bullet points whenever possible, don't make the answer too long.\n"
+                "Make your answers in bullet points whenever possible, don't make the answer too long, try to make it short without losing information. (Answer Around 50 WORDS)\n"
                 "Begin the conversation with offering help in manufacturing techology questions.\n"
 
     )
@@ -41,7 +41,9 @@ def _init_test_agent(session_id):
     )
 
     reminder = "NEVER come up with answers. Always refer to the syllabus and in which lesson the answer is whenever possible.\n"
-    reminder += "Make your answers in bullet points whenever possible, don't make the answer too long."
+    reminder += "Make your answers in bullet points whenever possible.\n"
+    reminder += "Don't make the answer too long, try to make it short without losing information.\n"
+    reminder += "Answer Around 50 WORDS."
 
     memory = AgentTokenBufferMemory(max_token_limit=10500, memory_key="chat_history", llm=llm_chat,
                                     chat_memory=DynamoDBChatMessageHistoryNew(table_name="langchain-agents",
