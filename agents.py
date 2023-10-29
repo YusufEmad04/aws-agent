@@ -30,6 +30,7 @@ def _init_test_agent(session_id):
                 "You always try to refer to the syllabus and in which lesson or topic the answer is if you can.\n"
                 "Query the syllabus_database with the exact user message without any modifications.\n"
                 "Be helpful and always willing to answer more and more questions.\n"
+                "Make your answers in bullet points whenever possible, don't make the answer too long.\n"
                 "Begin the conversation with offering help in manufacturing techology questions.\n"
 
     )
@@ -39,7 +40,8 @@ def _init_test_agent(session_id):
         extra_prompt_messages=[MessagesPlaceholder(variable_name="chat_history")],
     )
 
-    reminder = "NEVER come up with answers. Always refer to the syllabus and in which lesson the answer is whenever possible."
+    reminder = "NEVER come up with answers. Always refer to the syllabus and in which lesson the answer is whenever possible.\n"
+    reminder += "Make your answers in bullet points whenever possible, don't make the answer too long."
 
     memory = AgentTokenBufferMemory(max_token_limit=10500, memory_key="chat_history", llm=llm_chat,
                                     chat_memory=DynamoDBChatMessageHistoryNew(table_name="langchain-agents",
